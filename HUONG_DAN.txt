@@ -1,0 +1,54 @@
+BMS WEB ĐỘC LẬP — Nguyễn Minh Hiếu
+
+1. BỘ FILE
+index.html: giao diện đầy đủ.
+style.css: định dạng, giao diện điện thoại.
+app.js: kết nối ThingsBoard, thông số, lịch sử, CSV.
+ocv.js: biểu đồ CC–OCV.
+vercel.json: cấu hình triển khai web tĩnh trên Vercel.
+Không cần npm install hay build. Không chứa firmware ESP hay token cá nhân.
+
+2. ĐƯA WEB LÊN VERCEL
+- Giải nén. Tạo repository GitHub mới cho web, ví dụ bms-web.
+- Đưa các file trong thư mục này lên gốc repository (index.html ở gốc).
+- Trong Vercel: Add New > Project > Import repository vừa tạo.
+- Framework Preset: Other. Root Directory: thư mục chứa index.html.
+- Không cần Build Command. Output Directory: . (đã có trong vercel.json).
+- Deploy. Mở địa chỉ production Vercel trả về, rồi kết nối ThingsBoard.
+- Tạo project WEB riêng; giữ nguyên project BACKEND đang phục vụ app.
+
+3. ĐỔI ĐỊA CHỈ TRÊN ĐIỆN THOẠI
+- Dùng địa chỉ production mới của Vercel; tên mong muốn còn phụ thuộc khả dụng.
+- Nếu muốn tên miền riêng hoàn toàn, cần sở hữu tên miền đó.
+- Trong project WEB: Settings > Domains > Add Domain.
+- Nhập tên miền, rồi khai báo DNS đúng các bản ghi Vercel yêu cầu.
+  Không tự đoán IP hay CNAME: lấy giá trị cụ thể trong Vercel.
+- Chờ xác minh DNS và HTTPS, sau đó mở trực tiếp tên miền mới để chia sẻ.
+- Xóa bookmark/lối tắt cũ trên điện thoại rồi tạo lại bằng địa chỉ mới.
+- Không dùng trang nhúng iframe trỏ về web cũ hoặc link chuyển hướng về web cũ.
+- Xuất ZIP không tự thay đổi URL của trang đang chạy. Chưa có tên miền mới
+  nào được đăng ký hoặc triển khai bởi gói file này.
+
+4. KẾT NỐI VÀ ĐỒNG BỘ
+Đây là bản xuất giữ nguyên chức năng web đã triển khai: kết nối trực tiếp
+ThingsBoard qua URL máy chủ, Device ID và thông tin đăng nhập/API key.
+Không tự đổi sang backend Vercel của app, không thêm API/backend mới.
+Dùng cùng máy chủ và cùng thiết bị mà ESP/app đang dùng để xem cùng dữ liệu.
+Thông tin xác thực chỉ giữ trong bộ nhớ tab, không ghi cố định vào mã nguồn.
+Khi chuyển sang tên miền mới, nếu kết nối bị CORS chặn, cần cho phép origin
+HTTPS mới tại máy chủ/API đang dùng. Không tắt bảo mật trình duyệt.
+Có thể mở index.html để xem giao diện, nhưng nên dùng hosting HTTPS để kết nối.
+Các mẫu gửi bù xuất hiện khi ESP đã lưu/gửi được lên ThingsBoard; web đọc lại
+lịch sử 2 giờ gần nhất. Đổi hosting web không yêu cầu sửa dây LCD hay firmware.
+
+5. KIỂM TRA SAU TRIỂN KHAI
+- Mở tên miền mới trên máy tính và điện thoại.
+- Kết nối cùng Device ID, so sánh SOC, áp, dòng, nhiệt và thời gian đo với app.
+- Thử biểu đồ, đồng bộ lịch sử, xuất CSV.
+- Sao chép URL từ thanh địa chỉ: phải là địa chỉ mới bạn vừa mở.
+Gói đã kiểm tra cú pháp JS và các tham chiếu file nội bộ. Chưa được triển khai
+vào tài khoản Vercel của bạn hoặc kiểm tra trực tiếp trên điện thoại.
+
+Tài liệu triển khai:
+https://vercel.com/docs/deployments/configure-a-build
+https://vercel.com/docs/domains/set-up-custom-domain
